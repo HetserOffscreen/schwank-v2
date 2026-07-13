@@ -117,7 +117,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               {translations.hero.estimateDiagnostic}
             </a>
             <a 
-              href={`https://wa.me/5521999999999?text=${encodeURIComponent("Olá Ernesto! Acessei seu site e gostaria de solicitar um orçamento para o meu aparelho.")}`}
+              href={`https://wa.me/5521936180050?text=${encodeURIComponent("Olá Ernesto! Acessei seu site e gostaria de solicitar um orçamento para o meu aparelho.")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="glass px-8 py-4 rounded-full font-medium text-sm border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"

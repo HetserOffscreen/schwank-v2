@@ -105,7 +105,7 @@ export default function Wizard({ translations, lang }: WizardProps) {
 
   const generateWhatsAppLink = () => {
     const range = calculateEstimateRange();
-    const phoneNum = "5521999999999"; // Replaced with template support number
+    const phoneNum = "5521936180050"; // Replaced with template support number
     
     // Build symptoms text
     const selectedSymptomLabels = state.symptoms.map(id => {
