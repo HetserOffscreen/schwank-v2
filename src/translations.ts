@@ -180,7 +180,7 @@ export const translations: Record<"pt", TranslationSet> = {
       badge: "Operações Presenciais e Remotas Ativas",
       title: "Assistência Técnica Personalizada",
       techSupportSub: "Computadores e Celulares",
-      description: "Soluções personalizadas com foco em otimização de desempenho, proteção digital e configurações gerais. \nConfira a página de serviços e faça uma estimativa rápida aqui mesmo! \nSe preferir, fale direto comigo por WhatsApp. O orçamento é gratuito e sem compromisso!",
+      description: "Soluções personalizadas com foco em otimização de desempenho, proteção digital e configurações gerais. \nConfira a página de serviços e faça uma estimativa rápida aqui mesmo! \nSe preferir, fale direto comigo por WhatsApp.\nO orçamento é gratuito e sem compromisso!",
       estimateDiagnostic: "Estimar Orçamento",
       exploreOfferings: "Explorar Serviços",
       dataSecure: "100% Dados Seguros",
@@ -270,10 +270,10 @@ export const translations: Record<"pt", TranslationSet> = {
     sos: {
       kicker: "SOS - Contato Imediato",
       title: "Suporte Rápido para Casos Urgentes",
-      description: "Enfrentando falhas críticas de inicialização, telas azuis, perda de credenciais ou infecção por virus? Ofereço solução de problemas de software de emergência com alta prioridade e tempo de resposta rápido nos principais bairros do Rio de Janeiro.",
-      coverageHeader: "Cobertura SOS Ativa nos Bairros",
+      description: "Enfrentando falhas críticas de inicialização, telas prets, perda de credenciais ou infecção por virus? Ofereço soluções de emergência com alta prioridade.",
+      coverageHeader: "Cobertura Presencial nos Bairros",
       neighborhoods: "Leblon · Ipanema · Copacabana",
-      coverageDesc: "Chegada no local para restauração de emergência de software com velocidade recorde nestes bairros.",
+      coverageDesc: "Chegada rápida e atendimento veloz para situações de emergência.",
       cards: {
         security: {
           title: "Limpeza de Segurança",
@@ -294,7 +294,7 @@ export const translations: Record<"pt", TranslationSet> = {
       },
     },
     estimator: {
-      kicker: "Ferramenta de Orçamento Imediato",
+      kicker: "Análise de Orçamento Prévio",
       title: "Estimativa Rápida",
       description: "Selecione os sintomas do seu aparelho para gerar uma estimativa de custo e entrar em contato.",
       step1: "1. Canal de Atendimento",
