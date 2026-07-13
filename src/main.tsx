@@ -6,7 +6,7 @@ import './index.css';
 
 const logPageView = async () => {
     try {
-        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipResponse = await fetch('https://freeipapi.com/api/json');
         const geoData = await ipResponse.json();
 
         await supabase.from('site_logs').insert([
@@ -14,12 +14,13 @@ const logPageView = async () => {
                 action: 'page_view',
                 selected_lang: navigator.language,
                 user_agent: navigator.userAgent,
-                ip: geoData.ip,
-                city: geoData.city,
-                state: geoData.region_code 
+                ip: geoData.ipAddress,
+                city: geoData.cityName,
+                state: geoData.regionName 
             }
         ]);
     } catch (err) {
+
         try {
             await supabase.from('site_logs').insert([
                 { 
