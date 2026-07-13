@@ -167,7 +167,7 @@ export interface TranslationSet {
   calculateEstimate: string;
 }
 
-export const translations: Record<"pt", TranslationSet> = {
+export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
   pt: {
     nav: {
       title: "Ernesto Scheffer",
@@ -389,4 +389,12 @@ export const translations: Record<"pt", TranslationSet> = {
     calculating: "Calculando estimativa...",
     calculateEstimate: "Calcular Estimativa de Orçamento"
   },
+
+  en: {
+    // ENG
+  } as TranslationSet,
+  
+  es: {
+    // ESP
+  } as TranslationSet
 };
