@@ -233,7 +233,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
           {/* Quick action buttons moved to this section */}
           <motion.div 
             variants={buttonGroupVariants}
-            className="flex flex-wrap gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-lg"
+            className="flex flex-row items-center gap-3 md:gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-[550px]"
           >
             <motion.a 
               href="#estimator" 
@@ -241,10 +241,10 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="glass px-8 py-4 rounded-full font-medium text-sm bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-emerald-300 [data-theme=light]:text-teal-800 shadow-glow flex items-center gap-2 cursor-pointer"
+              className="glass px-5 md:px-6 py-4 rounded-full font-medium text-base bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-emerald-300 [data-theme=light]:text-teal-800 shadow-glow flex items-center justify-center gap-1.5 md:gap-2 cursor-pointer flex-1 whitespace-nowrap overflow-hidden"
             >
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              {translations.hero.estimateDiagnostic}
+              <Sparkles className="w-4 h-4 md:w-4.5 md:h-4.5 text-emerald-400 flex-shrink-0" />
+              <span className="truncate">{translations.hero.estimateDiagnostic}</span>
             </motion.a>
             <motion.a 
               href={`https://wa.me/5521936180050?text=${encodeURIComponent("Olá Ernesto! Acessei seu site e gostaria de solicitar um orçamento para o meu aparelho.")}`}
@@ -253,10 +253,10 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="glass px-8 py-4 rounded-full font-medium text-sm border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 flex items-center gap-2 cursor-pointer"
+              className="glass px-5 md:px-6 py-4 rounded-full font-medium text-base border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 flex items-center justify-center gap-1.5 md:gap-2 cursor-pointer flex-1 whitespace-nowrap overflow-hidden"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-400" />
-              Fale Comigo Agora!
+              <MessageSquare className="w-4 h-4 md:w-4.5 md:h-4.5 text-emerald-400 flex-shrink-0" />
+              <span className="truncate">Fale Comigo Agora!</span>
             </motion.a>
           </motion.div>
 
