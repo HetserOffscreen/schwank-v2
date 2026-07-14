@@ -325,7 +325,7 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                 <button
                   id="theme-toggle"
                   onClick={toggleTheme}
-                  className="glass theme-toggle-btn flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 shadow-md select-none"
+                  className="glass theme-toggle-btn flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 shadow-md select-none overflow-hidden"
                   aria-label="Toggle colour scheme"
                   title="Toggle light / dark mode"
                   style={{
@@ -334,9 +334,18 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                     boxShadow: 'var(--shadow-glass)',
                   }}
                 >
-                  <span className="flex items-center justify-center pointer-events-none text-base">
-                    {theme === 'dark' ? '☀️' : '🌙'}
-                  </span>
+                  <AnimatePresence mode="wait" initial={false}>
+                    <motion.span
+                      key={theme}
+                      initial={{ y: -12, opacity: 0, rotate: -90, scale: 0.8 }}
+                      animate={{ y: 0, opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ y: 12, opacity: 0, rotate: 90, scale: 0.8 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="flex items-center justify-center pointer-events-none text-base"
+                    >
+                      {theme === 'dark' ? '☀️' : '🌙'}
+                    </motion.span>
+                  </AnimatePresence>
                 </button>
               </motion.div>
             </React.Fragment>
