@@ -180,7 +180,7 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                         transition={{ duration: 0.2 }}
                         className="inline-block text-center whitespace-nowrap"
                       >
-                        FAQ
+                        ?
                       </motion.span>
                     </AnimatePresence>
                   </a>

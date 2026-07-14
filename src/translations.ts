@@ -364,7 +364,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       ],
     },
     footer: {
-      text: "Ernesto Scheffer · Rio de Janeiro, Brasil",
+      text: "Rio de Janeiro, Brasil",
     },
     step1: "Aparelho",
     step2: "Sintomas",
