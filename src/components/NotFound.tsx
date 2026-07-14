@@ -9,13 +9,15 @@ interface NotFoundProps {
   setLang: (lang: Language) => void;
   translations: TranslationContent;
   onNavigateHome: () => void;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }
 
-export default function NotFound({ lang, setLang, translations, onNavigateHome }: NotFoundProps) {
+export default function NotFound({ lang, setLang, translations, onNavigateHome, theme, toggleTheme }: NotFoundProps) {
   const t = translations;
 
   return (
-    <div className="relative min-h-screen text-white pb-20 select-none overflow-x-hidden">
+    <div className="relative min-h-screen text-[var(--color-text)] pb-20 select-none overflow-x-hidden">
       {/* ─── SCENE BACKGROUND BLOBS ─── */}
       <div className="scene" aria-hidden="true">
         <div className="scene__blob scene__blob--1 bg-rose-500/20"></div>
@@ -24,7 +26,7 @@ export default function NotFound({ lang, setLang, translations, onNavigateHome }
       </div>
 
       {/* Header navigation */}
-      <Header lang={lang} setLang={setLang} translations={t} />
+      <Header lang={lang} setLang={setLang} translations={t} theme={theme} toggleTheme={toggleTheme} />
 
       {/* Main Container */}
       <main className="relative z-10 w-full max-w-4xl mx-auto px-6 mt-20 md:mt-28 flex flex-col items-center justify-center min-h-[60vh]">

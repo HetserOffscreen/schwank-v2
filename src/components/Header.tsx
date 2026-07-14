@@ -7,9 +7,11 @@ interface HeaderProps {
   lang: Language;
   setLang: (lang: Language) => void;
   translations: TranslationContent;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }
 
-export default function Header({ lang, setLang, translations }: HeaderProps) {
+export default function Header({ lang, setLang, translations, theme, toggleTheme }: HeaderProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -151,14 +153,36 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
                     onClick={(e) => handleScroll(e, "#sos-info")}
                     className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-rose-500/30 text-rose-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-rose-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
-                    SOS
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={lang}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="inline-block text-center whitespace-nowrap"
+                      >
+                        SOS
+                      </motion.span>
+                    </AnimatePresence>
                   </a>
                   <a
                     href="#faq-section"
                     onClick={(e) => handleScroll(e, "#faq-section")}
                     className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-violet-500/30 text-violet-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-violet-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
-                    FAQ
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={lang}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="inline-block text-center whitespace-nowrap"
+                      >
+                        FAQ
+                      </motion.span>
+                    </AnimatePresence>
                   </a>
                 </div>
               </motion.div>
@@ -207,95 +231,113 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
                 </a>
               </motion.div>
 
-              {/* Right Column: Language selector dropdown */}
+              {/* Right Column: Language selector dropdown & Theme Toggle */}
               <motion.div
                 initial={{ opacity: 0, x: 15 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 15 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="flex justify-end relative"
-                ref={dropdownRef}
+                className="flex items-center justify-end gap-2.5 relative"
               >
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="w-[155px] py-2 px-3.5 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center justify-between cursor-pointer shadow-md select-none"
+                    id="language-selector-btn"
+                    title="Select language"
+                  >
+                    <span className="relative flex-1 h-5 overflow-hidden text-left">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={lang}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -4 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute inset-0 flex items-center gap-1.5 whitespace-nowrap"
+                        >
+                          <span>{lang === "pt" ? "🇧🇷" : lang === "en" ? "🇺🇸" : "🇪🇸"}</span>
+                          <span>{lang === "pt" ? "Português" : lang === "en" ? "English" : "Español"}</span>
+                        </motion.span>
+                      </AnimatePresence>
+                    </span>
+                    <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 flex-shrink-0 ml-1 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.15 }}
+                        className="!absolute right-0 mt-2 w-44 rounded-2xl border border-white/15 bg-slate-950/95 shadow-2xl p-2 z-40 flex flex-col gap-1 overflow-hidden"
+                      >
+                        <button
+                          onClick={() => {
+                            setLang("pt");
+                            setDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
+                            lang === "pt"
+                              ? "bg-white/10 text-cyan-400 font-bold"
+                              : "text-white/70 hover:bg-white/5 hover:text-white"
+                          }`}
+                        >
+                          <span>🇧🇷 Português</span>
+                          {lang === "pt" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setLang("es");
+                            setDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
+                            lang === "es"
+                              ? "bg-white/10 text-cyan-400 font-bold"
+                              : "text-white/70 hover:bg-white/5 hover:text-white"
+                          }`}
+                        >
+                          <span>🇪🇸 Español</span>
+                          {lang === "es" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setLang("en");
+                            setDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
+                            lang === "en"
+                              ? "bg-white/10 text-cyan-400 font-bold"
+                              : "text-white/70 hover:bg-white/5 hover:text-white"
+                          }`}
+                        >
+                          <span>🇺🇸 English</span>
+                          {lang === "en" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
                 <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="w-[155px] py-2 px-3.5 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center justify-between cursor-pointer shadow-md select-none"
-                  id="language-selector-btn"
-                  title="Select language"
+                  id="theme-toggle"
+                  onClick={toggleTheme}
+                  className="glass theme-toggle-btn flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 shadow-md select-none"
+                  aria-label="Toggle colour scheme"
+                  title="Toggle light / dark mode"
+                  style={{
+                    background: 'var(--glass-white)',
+                    border: '1px solid var(--glass-border)',
+                    boxShadow: 'var(--shadow-glass)',
+                  }}
                 >
-                  <span className="relative flex-1 h-5 overflow-hidden text-left">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={lang}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute inset-0 flex items-center gap-1.5 whitespace-nowrap"
-                      >
-                        <span>{lang === "pt" ? "🇧🇷" : lang === "en" ? "🇺🇸" : "🇪🇸"}</span>
-                        <span>{lang === "pt" ? "Português" : lang === "en" ? "English" : "Español"}</span>
-                      </motion.span>
-                    </AnimatePresence>
+                  <span className="flex items-center justify-center pointer-events-none text-base">
+                    {theme === 'dark' ? '☀️' : '🌙'}
                   </span>
-                  <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 flex-shrink-0 ml-1 ${dropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
-
-                <AnimatePresence>
-                  {dropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="!absolute right-0 mt-2 w-44 rounded-2xl border border-white/15 bg-slate-950/95 shadow-2xl p-2 z-40 flex flex-col gap-1 overflow-hidden"
-                    >
-                      <button
-                        onClick={() => {
-                          setLang("pt");
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
-                          lang === "pt"
-                            ? "bg-white/10 text-cyan-400 font-bold"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                        }`}
-                      >
-                        <span>🇧🇷 Português</span>
-                        {lang === "pt" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setLang("es");
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
-                          lang === "es"
-                            ? "bg-white/10 text-cyan-400 font-bold"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                        }`}
-                      >
-                        <span>🇪🇸 Español</span>
-                        {lang === "es" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setLang("en");
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
-                          lang === "en"
-                            ? "bg-white/10 text-cyan-400 font-bold"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                        }`}
-                      >
-                        <span>🇺🇸 English</span>
-                        {lang === "en" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </motion.div>
             </React.Fragment>
           )}

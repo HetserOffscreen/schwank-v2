@@ -15,6 +15,12 @@ export default function App() {
   const [lang, setLang] = useState<Language>("pt");
   const [path, setPath] = useState(window.location.pathname);
 
+  // Theme state
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    const saved = localStorage.getItem("theme");
+    return (saved === "light" || saved === "dark") ? saved : "dark";
+  });
+
   // Monitor path changes for SPA state updates
   useEffect(() => {
     const handlePopState = () => {
@@ -32,10 +38,15 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Apply dark theme to HTML tag
+  // Apply theme to HTML tag
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }, []);
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const t = translations[lang];
 
@@ -49,12 +60,14 @@ export default function App() {
         setLang={setLang}
         translations={t}
         onNavigateHome={() => navigateTo("/")}
+        theme={theme}
+        toggleTheme={toggleTheme}
       />
     );
   }
 
   return (
-    <div className="relative min-h-screen text-white transition-colors duration-400 pb-20 select-none overflow-x-hidden">
+    <div className="relative min-h-screen text-[var(--color-text)] transition-colors duration-400 pb-20 select-none overflow-x-hidden">
       
       {/* ─── SCENE BACKGROUND BLOBS ─── */}
       <div className="scene" aria-hidden="true">
@@ -64,7 +77,7 @@ export default function App() {
       </div>
 
       {/* ─── HEADER & NAVIGATION ─── */}
-      <Header lang={lang} setLang={setLang} translations={t} />
+      <Header lang={lang} setLang={setLang} translations={t} theme={theme} toggleTheme={toggleTheme} />
 
       {/* ─── MAIN APPLET BODY ─── */}
       <AnimatePresence mode="wait">

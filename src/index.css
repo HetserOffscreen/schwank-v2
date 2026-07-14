@@ -58,39 +58,48 @@
   --radius-xl: 32px;
   --radius-full: 9999px;
 
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --dur-fast: 0.2s;
+  --z-toast: 9999;
+
   --ease-glass: cubic-bezier(0.22, 0.68, 0, 1.2);
   --ease-liquid: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] {
-  /* Surfaces */
-  --glass-white: rgba(255, 255, 255, 0.65);
-  --glass-white-md: rgba(255, 255, 255, 0.82);
-  --glass-white-lg: rgba(255, 255, 255, 0.95);
-  --glass-dark: rgba(15, 23, 42, 0.06);
-  --glass-dark-md: rgba(15, 23, 42, 0.12);
+  /* Surfaces - use the existing translucent dark glass theme variables */
+  --glass-white: rgba(15, 23, 42, 0.45);
+  --glass-white-md: rgba(15, 23, 42, 0.6);
+  --glass-white-lg: rgba(15, 23, 42, 0.75);
+  --glass-dark: rgba(15, 23, 42, 0.45);
+  --glass-dark-md: rgba(15, 23, 42, 0.65);
 
-  /* Borders */
-  --glass-border: rgba(15, 23, 42, 0.14);
-  --glass-border-subtle: rgba(15, 23, 42, 0.08);
-  --glass-border-bright: rgba(15, 23, 42, 0.25);
+  /* Borders - dark borders for dark glass */
+  --glass-border: rgba(15, 23, 42, 0.2);
+  --glass-border-subtle: rgba(15, 23, 42, 0.1);
+  --glass-border-bright: rgba(15, 23, 42, 0.35);
 
-  /* Shadows */
-  --shadow-glass: 0 8px 32px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --shadow-float: 0 20px 60px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(15, 23, 42, 0.05);
+  /* Shadows adjusted for dark floating cards on a light canvas */
+  --shadow-glass: 0 8px 32px rgba(15, 23, 42, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --shadow-float: 0 20px 60px rgba(15, 23, 42, 0.2), 0 4px 16px rgba(15, 23, 42, 0.08);
 
-  /* Background */
+  /* Background - clean light background */
   --color-bg: #f0f4fa;
-  --color-surface: rgba(255, 255, 255, 0.6);
-  --color-text: #0f172a;
-  --color-text-muted: rgba(15, 23, 42, 0.65);
-  --color-text-subtle: rgba(15, 23, 42, 0.42);
+  --color-surface: rgba(15, 23, 42, 0.45);
+  
+  /* Text on body (outside glass) goes black */
+  --color-text: #000000;
+  --color-text-muted: rgba(0, 0, 0, 0.75);
+  --color-text-subtle: rgba(0, 0, 0, 0.5);
 
-  --reflection-top: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 50%);
-  --reflection-inner: inset 0 1px 1px rgba(255, 255, 255, 0.95), inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+  --reflection-top: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 50%);
+  --reflection-inner: inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 1px rgba(0, 0, 0, 0.1);
 
-  /* Accent colors adjusted for light contrast */
+  /* Accent colors */
   --accent-aqua: #0d9488;
   --accent-violet: #6d28d9;
   --accent-rose: #db2777;
@@ -219,6 +228,50 @@ body {
 [data-theme="light"] .glass {
   background: var(--glass-white);
   border-color: var(--glass-border);
+}
+
+/* 2. Standard Interactive Glass Button Base Class */
+.glass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-liquid), box-shadow var(--dur-fast), background var(--dur-fast);
+  position: relative;
+}
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--reflection-top);
+  pointer-events: none;
+}
+.glass-btn:active {
+  transform: scale(0.96);
+}
+
+/* 3. Positioning and Size Specialization class for the Theme Toggle */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--dur-fast) var(--ease-liquid), box-shadow var(--dur-fast);
 }
 
 /* Decorative top accent line */
@@ -353,15 +406,15 @@ body {
 }
 
 [data-theme="light"] .glass-input {
-  background: rgba(15, 23, 42, 0.04);
-  border-color: rgba(15, 23, 42, 0.12);
-  color: #0f172a;
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #000000;
 }
 
 [data-theme="light"] .glass-input:focus {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: #0d9488;
-  box-shadow: 0 0 12px rgba(13, 148, 136, 0.2);
+  background: rgba(0, 0, 0, 0.08);
+  border-color: var(--accent-aqua);
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.3);
 }
 
 /* Efeito de brilho de alta conversão para o botão do WhatsApp */
@@ -395,8 +448,9 @@ body {
 }
 
 [data-theme="light"] .glass-stepper-node {
-  background: rgba(15, 23, 42, 0.05);
-  border-color: rgba(15, 23, 42, 0.1);
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #000000;
 }
 
 .glass-stepper-node.is-active {
@@ -419,12 +473,90 @@ body {
 }
 
 [data-theme="light"] .glass-stepper-connector {
-  background: rgba(15, 23, 42, 0.1);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .glass-stepper-connector.is-complete {
   background: var(--accent-aqua);
   opacity: 0.8;
+}
+
+/* Ensure all text elements inside glass components turn black/dark in light mode */
+[data-theme="light"] .glass,
+[data-theme="light"] .apple-liquid-glass-card,
+[data-theme="light"] .glass-stepper-wrapper {
+  color: #000000 !important;
+}
+
+[data-theme="light"] .glass p,
+[data-theme="light"] .glass span,
+[data-theme="light"] .glass h1,
+[data-theme="light"] .glass h2,
+[data-theme="light"] .glass h3,
+[data-theme="light"] .glass h4,
+[data-theme="light"] .glass button:not(.whatsapp-btn-glow),
+[data-theme="light"] .glass a:not(.whatsapp-btn-glow),
+[data-theme="light"] .glass label,
+[data-theme="light"] .glass div:not(.whatsapp-btn-glow):not(.apple-tab-pill),
+[data-theme="light"] .apple-liquid-glass-card p,
+[data-theme="light"] .apple-liquid-glass-card span,
+[data-theme="light"] .apple-liquid-glass-card h1,
+[data-theme="light"] .apple-liquid-glass-card h2,
+[data-theme="light"] .apple-liquid-glass-card h3,
+[data-theme="light"] .apple-liquid-glass-card h4,
+[data-theme="light"] .apple-liquid-glass-card button,
+[data-theme="light"] .apple-liquid-glass-card a,
+[data-theme="light"] .apple-liquid-glass-card label,
+[data-theme="light"] .apple-liquid-glass-card div:not(.apple-tab-pill),
+[data-theme="light"] .glass-stepper-wrapper p,
+[data-theme="light"] .glass-stepper-wrapper span,
+[data-theme="light"] .glass-stepper-wrapper div,
+[data-theme="light"] .glass-stepper-wrapper button {
+  color: #000000 !important;
+}
+
+/* Map tailwind white text helper classes to black in light mode */
+[data-theme="light"] .text-white {
+  color: #000000 !important;
+}
+[data-theme="light"] .text-white\/90 {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+[data-theme="light"] .text-white\/80 {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+[data-theme="light"] .text-white\/70 {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+[data-theme="light"] .text-white\/60 {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+[data-theme="light"] .text-white\/50 {
+  color: rgba(0, 0, 0, 0.5) !important;
+}
+[data-theme="light"] .text-white\/40 {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+[data-theme="light"] .text-white\/30 {
+  color: rgba(0, 0, 0, 0.3) !important;
+}
+[data-theme="light"] .text-slate-100,
+[data-theme="light"] .text-slate-200,
+[data-theme="light"] .text-slate-300,
+[data-theme="light"] .text-slate-400 {
+  color: #1e293b !important;
+}
+[data-theme="light"] .text-zinc-100,
+[data-theme="light"] .text-zinc-200,
+[data-theme="light"] .text-zinc-300,
+[data-theme="light"] .text-zinc-400 {
+  color: #27272a !important;
+}
+[data-theme="light"] .text-gray-100,
+[data-theme="light"] .text-gray-200,
+[data-theme="light"] .text-gray-300,
+[data-theme="light"] .text-gray-400 {
+  color: #1f2937 !important;
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -447,13 +579,13 @@ body {
 }
 
 [data-theme="light"] .apple-liquid-glass-card {
-  background: rgba(255, 255, 255, 0.35) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
+  background: rgba(30, 30, 35, 0.45) !important;
+  border-color: rgba(15, 23, 42, 0.2) !important;
   box-shadow: 
-    0 30px 60px -15px rgba(0, 0, 0, 0.06),
-    0 10px 20px -10px rgba(0, 0, 0, 0.04),
-    inset 0 2px 4px -1px rgba(255, 255, 255, 0.8),
-    inset 0 -2px 4px -1px rgba(255, 255, 255, 0.25) !important;
+    0 40px 80px -20px rgba(15, 23, 42, 0.25),
+    0 10px 30px -10px rgba(15, 23, 42, 0.15),
+    inset 0 2px 3px -1px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px -1px rgba(255, 255, 255, 0.05) !important;
 }
 
 .apple-liquid-glass-card::before {
@@ -468,7 +600,7 @@ body {
 }
 
 [data-theme="light"] .apple-liquid-glass-card::before {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .apple-liquid-glass-card:hover {
@@ -482,10 +614,10 @@ body {
 
 [data-theme="light"] .apple-liquid-glass-card:hover {
   box-shadow: 
-    0 40px 80px -15px rgba(0, 0, 0, 0.12),
-    0 15px 30px -10px rgba(0, 0, 0, 0.08),
-    inset 0 2px 4px -1px rgba(255, 255, 255, 0.9),
-    inset 0 -2px 6px -1px rgba(255, 255, 255, 0.4) !important;
+    0 50px 100px -20px rgba(15, 23, 42, 0.32),
+    0 15px 40px -10px rgba(15, 23, 42, 0.22),
+    inset 0 2px 4px -1px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 6px -1px rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Interactive Glare */
@@ -508,7 +640,7 @@ body {
 }
 
 [data-theme="light"] .liquid-glare {
-  background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.45) 0%, transparent 100%);
+  background: radial-gradient(circle 140px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.25) 0%, transparent 100%);
 }
 
 /* Apple styled liquid horizontal tabs */
@@ -525,9 +657,9 @@ body {
 }
 
 [data-theme="light"] .apple-liquid-tabs {
-  background: rgba(15, 23, 42, 0.06);
-  border-color: rgba(15, 23, 42, 0.1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .apple-tab-btn {
@@ -548,7 +680,7 @@ body {
 }
 
 [data-theme="light"] .apple-tab-btn {
-  color: rgba(15, 23, 42, 0.5);
+  color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .apple-tab-btn:hover {
@@ -556,7 +688,7 @@ body {
 }
 
 [data-theme="light"] .apple-tab-btn:hover {
-  color: rgba(15, 23, 42, 0.85);
+  color: rgba(0, 0, 0, 0.85) !important;
 }
 
 .apple-tab-btn.is-active {
@@ -564,7 +696,7 @@ body {
 }
 
 [data-theme="light"] .apple-tab-btn.is-active {
-  color: #0f172a;
+  color: #000000 !important;
 }
 
 /* Active Sliding Pill */
@@ -583,11 +715,11 @@ body {
 }
 
 [data-theme="light"] .apple-tab-pill {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(15, 23, 42, 0.05);
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.05);
   box-shadow: 
-    0 4px 10px rgba(15, 23, 42, 0.08), 
-    0 1px 2px rgba(15, 23, 42, 0.05), 
+    0 4px 10px rgba(0, 0, 0, 0.05), 
+    0 1px 2px rgba(0, 0, 0, 0.03), 
     inset 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
