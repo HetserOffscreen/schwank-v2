@@ -273,8 +273,8 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
     },
     sos: {
       kicker: "SOS - Contato Imediato",
-      title: "Suporte Rápido para Casos Urgentes",
-      description: "Enfrentando falhas críticas de inicialização, telas prets, perda de credenciais ou infecção por virus? Ofereço soluções de emergência com alta prioridade.",
+      title: "Suporte Rápido para Emergências",
+      description: "Enfrentando falhas críticas de inicialização, telas pretas, perda de credenciais ou infecção por virus? Ofereço soluções de emergência com alta prioridade.",
       coverageHeader: "Cobertura Presencial nos Bairros",
       neighborhoods: "Leblon · Ipanema · Copacabana",
       coverageDesc: "Chegada rápida e atendimento veloz para situações de emergência.",
@@ -403,7 +403,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
   en: {
     nav: {
       title: "Ernesto Scheffer",
-      techSupport: "Software Technical Support",
+      techSupport: "Software Technician",
       services: "Services",
       sosZones: "SOS",
       freeEstimate: "Free Estimate",
@@ -629,7 +629,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
   es: {
     nav: {
       title: "Ernesto Scheffer",
-      techSupport: "Soporte Técnico de Software",
+      techSupport: "Técnico en Software",
       services: "Servicios",
       sosZones: "SOS",
       freeEstimate: "Presupuesto Gratis",
