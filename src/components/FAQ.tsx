@@ -11,11 +11,68 @@ interface FAQProps {
 export default function FAQ({ lang, translations }: FAQProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Cascading Variants for FAQ scroll reveal
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  } as const;
+
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  } as const;
+
+  const listContainerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2
+      }
+    }
+  } as const;
+
+  const faqItemVariants = {
+    hidden: { opacity: 0, y: 15, scale: 0.98 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 14
+      }
+    }
+  } as const;
+
   return (
-    <section id="faq-section" className="space-y-12 max-w-4xl mx-auto pt-10">
+    <motion.section 
+      id="faq-section" 
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-80px" }}
+      className="space-y-12 max-w-4xl mx-auto pt-10"
+    >
       
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-bold">
+      <motion.div variants={headerVariants} className="text-center max-w-2xl mx-auto space-y-2">
+        <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-bold block">
           {translations.faqs.kicker}
         </span>
         <h2 className="font-display text-4xl font-medium text-white [data-theme=light]:text-slate-900">
@@ -24,15 +81,19 @@ export default function FAQ({ lang, translations }: FAQProps) {
         <p className="text-sm text-white/50 [data-theme=light]:text-slate-500 font-body">
           {translations.faqs.description}
         </p>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div 
+        variants={listContainerVariants}
+        className="space-y-4 min-h-[580px] md:min-h-[600px]"
+      >
         
         {translations.faqs.items.map((faq, idx) => {
           const isOpen = openFaq === idx;
           return (
-            <div 
+            <motion.div 
               key={idx}
+              variants={faqItemVariants}
               className="glass rounded-2xl border-white/10 overflow-hidden transition-all"
             >
               <button
@@ -61,12 +122,12 @@ export default function FAQ({ lang, translations }: FAQProps) {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
           );
         })}
 
-      </div>
+      </motion.div>
 
-    </section>
+    </motion.section>
   );
 }

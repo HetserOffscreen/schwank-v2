@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { translations } from "./translations";
 import { Language } from "./types";
-import NavBar from "./components/NavBar";
+import { motion } from "motion/react";
+import Header from "./components/Header";
 import FrontPage from "./components/FrontPage";
 import Wizard from "./components/Wizard";
 import SOS from "./components/SOS";
@@ -30,10 +31,10 @@ export default function App() {
       </div>
 
       {/* ─── HEADER & NAVIGATION ─── */}
-      <NavBar lang={lang} setLang={setLang} translations={t} />
+      <Header lang={lang} setLang={setLang} translations={t} />
 
       {/* ─── MAIN APPLET BODY ─── */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 mt-16 md:mt-24">
+      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12">
         
         {/* FrontPage section */}
         <FrontPage lang={lang} translations={t} />
@@ -42,10 +43,39 @@ export default function App() {
         <div id="estimator" className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/10 [data-theme=light]:via-slate-300 to-transparent my-20"></div>
 
         {/* Interactive Estimate Configurator section (Wizard) */}
-        <section className="space-y-12">
+        <motion.section 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.15,
+                delayChildren: 0.1
+              }
+            }
+          } as const}
+          className="space-y-12"
+        >
           
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 [data-theme=light]:text-emerald-600 font-bold">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: -20 },
+              show: { 
+                opacity: 1, 
+                y: 0,
+                transition: {
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }
+              }
+            } as const}
+            className="text-center max-w-2xl mx-auto space-y-2"
+          >
+            <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 [data-theme=light]:text-emerald-600 font-bold block">
               {t.estimator.kicker}
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-medium text-white [data-theme=light]:text-slate-900">
@@ -54,13 +84,28 @@ export default function App() {
             <p className="text-sm text-white/50 [data-theme=light]:text-slate-500 font-body">
               {t.estimator.description}
             </p>
-          </div>
+          </motion.div>
 
-          <div className="max-w-4xl mx-auto">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 25, scale: 0.98 },
+              show: { 
+                opacity: 1, 
+                y: 0,
+                scale: 1,
+                transition: {
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 15
+                }
+              }
+            } as const}
+            className="max-w-4xl mx-auto"
+          >
             <Wizard translations={t} lang={lang} />
-          </div>
+          </motion.div>
 
-        </section>
+        </motion.section>
 
         {/* Divider */}
         <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-white/10 [data-theme=light]:via-slate-300 to-transparent my-20"></div>

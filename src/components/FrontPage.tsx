@@ -84,72 +84,212 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
     }
   ];
 
+  // Framer Motion Cascade Animation Variants
+  const heroContainerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1
+      }
+    }
+  } as const;
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -25 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 14
+      }
+    }
+  } as const;
+
+  const subTextVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 14
+      }
+    }
+  } as const;
+
+  const descVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 14
+      }
+    }
+  } as const;
+
+  const buttonGroupVariants = {
+    hidden: { opacity: 0, y: 15 },
+    show: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 14
+      }
+    }
+  } as const;
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 35 },
+    show: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 80,
+        damping: 16,
+        delay: 0.55 // Service card loads gracefully after left elements cascade
+      }
+    }
+  } as const;
+
+  const tabsContainerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 1.0 // tab buttons stagger beautifully after card finishes loading
+      }
+    }
+  } as const;
+
+  const tabButtonVariants = {
+    hidden: { opacity: 0, scale: 0.85, y: 8 },
+    show: { 
+      opacity: 1, 
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 150,
+        damping: 12
+      }
+    }
+  } as const;
+
   return (
     <section className="w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <motion.div 
+        variants={heroContainerVariants}
+        initial="hidden"
+        animate="show"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+      >
         
         {/* Left Hero Column */}
-        <div className="lg:col-span-7 flex flex-col items-start space-y-6 w-full max-w-[550px]">
+        <div className="lg:col-span-5 flex flex-col items-start space-y-6 w-full max-w-[550px]">
           
           {/* Main Display Typography Title */}
-          <div className="space-y-2">
-            <h1 className="font-display text-5xl md:text-7xl leading-none tracking-tight font-medium bg-gradient-to-r from-white via-slate-100 to-cyan-300 [data-theme=light]:from-slate-900 [data-theme=light]:via-slate-800 [data-theme=light]:to-teal-800 bg-clip-text text-transparent transition-colors">
-              {translations.hero.title}
+          <motion.div variants={titleVariants} className="space-y-2">
+            <h1 className="font-display text-5xl md:text-7xl leading-none tracking-tight font-medium bg-gradient-to-r from-white via-slate-100 to-cyan-300 [data-theme=light]:from-slate-900 [data-theme=light]:via-slate-800 [data-theme=light]:to-teal-800 bg-clip-text text-transparent transition-colors w-full max-w-[550px]">
+              {(() => {
+                const words = translations.hero.title.split(" ");
+                if (words.length >= 2) {
+                  return (
+                    <>
+                      <span className="whitespace-nowrap">{words[0]} {words[1]}</span>{" "}
+                      {words.slice(2).join(" ")}
+                    </>
+                  );
+                }
+                return translations.hero.title;
+              })()}
             </h1>
             <p className="font-mono text-xs tracking-widest text-white/40 [data-theme=light]:text-slate-500 uppercase">
               {translations.hero.techSupportSub}
             </p>
-          </div>
+          </motion.div>
 
           {/* Premium Specialist Description */}
-          <p className="text-lg text-white/70 [data-theme=light]:text-slate-600 leading-relaxed max-w-[450px] font-body font-light whitespace-pre-line">
+          <motion.p 
+            variants={descVariants}
+            className="text-lg text-white/70 [data-theme=light]:text-slate-600 leading-relaxed max-w-[450px] font-body font-light whitespace-pre-line"
+          >
             {translations.hero.description}
-          </p>
+          </motion.p>
 
           {/* Quick action buttons moved to this section */}
-          <div className="flex flex-wrap gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-lg">
-            <a 
+          <motion.div 
+            variants={buttonGroupVariants}
+            className="flex flex-wrap gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-lg"
+          >
+            <motion.a 
               href="#estimator" 
               onClick={(e) => scrollToSection(e, "#estimator")}
-              className="glass px-8 py-4 rounded-full font-medium text-sm bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-emerald-300 [data-theme=light]:text-teal-800 hover:scale-105 hover:border-emerald-400/50 active:scale-95 shadow-glow transition-all duration-300 flex items-center gap-2"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className="glass px-8 py-4 rounded-full font-medium text-sm bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-emerald-300 [data-theme=light]:text-teal-800 shadow-glow flex items-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-emerald-400" />
               {translations.hero.estimateDiagnostic}
-            </a>
-            <a 
+            </motion.a>
+            <motion.a 
               href={`https://wa.me/5521936180050?text=${encodeURIComponent("Olá Ernesto! Acessei seu site e gostaria de solicitar um orçamento para o meu aparelho.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass px-8 py-4 rounded-full font-medium text-sm border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2 cursor-pointer"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className="glass px-8 py-4 rounded-full font-medium text-sm border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 flex items-center gap-2 cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-emerald-400" />
               Fale Comigo Agora!
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
 
         </div>
 
         {/* Right Hero Column (Immersive Visual Glass Presentation card) */}
-        <div className="lg:col-span-5 relative flex justify-center lg:justify-end w-full">
+        <motion.div 
+          variants={cardVariants}
+          className="lg:col-span-7 relative flex justify-center lg:justify-end w-full"
+        >
           <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 to-violet-500/10 rounded-3xl blur-3xl opacity-60"></div>
           
-          <motion.div 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="apple-liquid-glass-card max-w-lg w-full border-white/15 shadow-2xl relative z-10 p-6 md:p-8 flex flex-col justify-between h-[540px]"
+          <div 
+            className="apple-liquid-glass-card max-w-[650px] w-full border-white/15 shadow-2xl relative z-10 p-6 md:p-8 flex flex-col justify-between min-h-[580px] md:min-h-[610px] h-auto pb-8"
           >
             <div className="space-y-6 relative z-10">
               {/* Visual Header */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase font-mono tracking-widest text-cyan-400">
-                  {translations.portal.systemIdentity}
-                </span>
-                <Laptop className="w-5 h-5 text-cyan-400" />
+              <div className="flex flex-col items-center justify-center gap-2 mb-2 text-center w-full">
+                <div className="flex items-center gap-2">
+                  <Laptop className="w-4.5 h-4.5 text-cyan-400" />
+                  <span className="text-xs md:text-sm uppercase font-mono tracking-widest text-cyan-400 font-semibold">
+                    {translations.portal.systemIdentity}
+                  </span>
+                </div>
               </div>
 
-              {/* Compact Horizontal Service Selection Icons (Apple Liquid Tab-bar Style) */}
-              <div className="apple-liquid-tabs">
+              {/* Compact Horizontal Service Selection Icons (Apple Liquid Tab-bar Style) with Stagger */}
+              <motion.div 
+                variants={tabsContainerVariants}
+                initial="hidden"
+                animate="show"
+                className="apple-liquid-tabs"
+              >
                 {/* Sliding active pill indicator */}
                 <AnimatePresence>
                   {services.map((srv) => {
@@ -194,27 +334,33 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
                   ];
                   const currentStyle = tabStyles[idx] || tabStyles[0];
                   return (
-                    <button
+                    <motion.button
                       key={srv.id}
+                      variants={tabButtonVariants}
                       onClick={() => setActiveTab(srv.id)}
-                      title={srv.title}
                       className={`apple-tab-btn relative group ${isSelected ? `is-active ${currentStyle.textActive}` : `text-white/40 ${currentStyle.hoverClass}`}`}
                     >
                       <IconComponent className="w-5 h-5 transition-transform duration-300 active:scale-90" />
-                      {/* Tooltip on hover */}
-                      <span className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 px-2 py-1 bg-slate-900 text-[10px] rounded text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-20 shadow-md">
-                        {srv.title}
-                      </span>
-                    </button>
+                    </motion.button>
                   );
                 })}
-              </div>
+              </motion.div>
 
               {/* Selected Service Detail View (Animated & Stabilized Height - No scrollbars) */}
-              <div className="h-[240px] md:h-[250px] overflow-hidden select-text">
+              <div className="flex-1 min-h-[290px] select-text">
                 <AnimatePresence mode="wait">
                   {services.map((srv) => {
                     if (srv.id !== activeTab) return null;
+                    const idx = services.findIndex(s => s.id === srv.id);
+                    const tabTitleColors = [
+                      "text-blue-400 [data-theme=light]:text-blue-600",
+                      "text-rose-400 [data-theme=light]:text-rose-600",
+                      "text-emerald-400 [data-theme=light]:text-emerald-600",
+                      "text-purple-400 [data-theme=light]:text-purple-600",
+                      "text-orange-400 [data-theme=light]:text-orange-600"
+                    ];
+                    const activeTitleColor = tabTitleColors[idx] || "text-white";
+                    
                     return (
                       <motion.div
                         key={srv.id}
@@ -222,27 +368,27 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="space-y-4"
+                        className="space-y-5"
                       >
-                        <div className="space-y-1">
-                          <h4 className="font-display text-xl font-medium text-white">
+                        <div className="space-y-1.5">
+                          <h4 className={`font-display text-2xl md:text-3xl font-bold ${activeTitleColor} transition-colors duration-300`}>
                             {srv.title}
                           </h4>
-                          <p className="font-mono text-xs text-cyan-400/85 font-semibold">
+                          <p className="font-mono text-xs md:text-sm text-cyan-400/85 font-semibold">
                             {srv.subtitle}
                           </p>
                         </div>
 
-                        <p className="text-xs md:text-sm text-white/70 leading-relaxed font-body font-light">
+                        <p className="text-sm md:text-base text-white/90 [data-theme=light]:text-slate-800 leading-relaxed font-body">
                           {srv.description}
                         </p>
 
                         {/* List of points (compact version) */}
-                        <div className="grid grid-cols-1 gap-2 pt-2">
+                        <div className="grid grid-cols-1 gap-2.5 pt-2">
                           {srv.points.map((point, index) => (
-                            <div key={index} className="flex items-center gap-2">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
-                              <span className="text-xs text-white/80">
+                            <div key={index} className="flex items-center gap-2.5">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                              <span className="text-sm md:text-base text-white/90 [data-theme=light]:text-slate-800">
                                 {point}
                               </span>
                             </div>
@@ -266,10 +412,10 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               </div>
             </div>
 
-          </motion.div>
-        </div>
-
-      </div>
+          </div>
+        </motion.div>
+ 
+      </motion.div>
     </section>
   );
 }

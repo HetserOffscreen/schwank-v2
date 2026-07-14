@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DiagnosticsState, Language, TranslationContent } from '../types';
+import { motion } from 'motion/react';
 import { 
   Laptop, 
   Smartphone, 
@@ -38,7 +39,7 @@ export default function Wizard({ translations, lang }: WizardProps) {
     if (step > 1) {
       const element = document.getElementById('wizard-section');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
   }, [step]);
@@ -218,9 +219,12 @@ export default function Wizard({ translations, lang }: WizardProps) {
               {translations.selectDevice}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button
+              <motion.button
                 onClick={() => handleDeviceSelect('computer')}
-                className={`glass rounded-2xl p-6 text-center flex flex-col items-center justify-center gap-4 border w-full h-full transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className={`glass rounded-2xl p-6 text-center flex flex-col items-center justify-center gap-4 border w-full h-full cursor-pointer ${
                   state.device === 'computer' 
                     ? 'border-[#5ee7df] bg-[#5ee7df]/5 shadow-lg' 
                     : 'border-white/10'
@@ -233,11 +237,14 @@ export default function Wizard({ translations, lang }: WizardProps) {
                   <h4 className="font-bold text-base">{translations.computer}</h4>
                   <p className="text-xs opacity-60 mt-1">Mac e Windows</p>
                 </div>
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
                 onClick={() => handleDeviceSelect('phone')}
-                className={`glass rounded-2xl p-6 text-center flex flex-col items-center justify-center gap-4 border w-full h-full transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className={`glass rounded-2xl p-6 text-center flex flex-col items-center justify-center gap-4 border w-full h-full cursor-pointer ${
                   state.device === 'phone' 
                     ? 'border-[#b490f5] bg-[#b490f5]/5 shadow-lg' 
                     : 'border-white/10'
@@ -250,7 +257,7 @@ export default function Wizard({ translations, lang }: WizardProps) {
                   <h4 className="font-bold text-base">{translations.phone}</h4>
                   <p className="text-xs opacity-60 mt-1">iOS e Android</p>
                 </div>
-              </button>
+              </motion.button>
             </div>
           </div>
         )}
@@ -265,10 +272,13 @@ export default function Wizard({ translations, lang }: WizardProps) {
               {translations.symptomsList.map((sym) => {
                 const isSelected = state.symptoms.includes(sym.id);
                 return (
-                  <button
+                  <motion.button
                     key={sym.id}
                     onClick={() => toggleSymptom(sym.id)}
-                    className={`glass-panel rounded-xl px-4 py-3 text-left flex items-center gap-3 border transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] ${
+                    whileHover={{ scale: 1.03, y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className={`glass-panel rounded-xl px-4 py-3 text-left flex items-center gap-3 border ${
                       isSelected 
                         ? 'border-[#5ee7df] bg-[#5ee7df]/10 text-white shadow-md' 
                         : 'border-white/10 hover:border-white/25 hover:bg-white/5'
@@ -280,7 +290,7 @@ export default function Wizard({ translations, lang }: WizardProps) {
                       {isSelected && <span className="text-[10px] text-slate-900 font-bold">✓</span>}
                     </div>
                     <span className="text-xs font-medium opacity-90">{sym.label}</span>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
@@ -301,10 +311,13 @@ export default function Wizard({ translations, lang }: WizardProps) {
               ].map((m) => {
                 const isSelected = state.method === m.id;
                 return (
-                  <button
+                  <motion.button
                     key={m.id}
                     onClick={() => handleMethodSelect(m.id as any)}
-                    className={`glass-panel rounded-2xl p-4 text-left flex items-start gap-4 border transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+                    whileHover={{ scale: 1.02, y: -1 }}
+                    whileTap={{ scale: 0.99 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className={`glass-panel rounded-2xl p-4 text-left flex items-start gap-4 border ${
                       isSelected 
                         ? 'border-[#5ee7df] bg-[#5ee7df]/5 shadow-md' 
                         : 'border-white/10 hover:bg-white/5'
@@ -321,7 +334,7 @@ export default function Wizard({ translations, lang }: WizardProps) {
                       <h4 className={`font-bold text-sm ${m.color}`}>{m.label}</h4>
                       <p className="text-xs opacity-60 mt-1 leading-relaxed">{m.detail}</p>
                     </div>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
