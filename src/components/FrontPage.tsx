@@ -270,7 +270,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
           <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 to-violet-500/10 rounded-3xl blur-3xl opacity-60"></div>
           
           <div 
-            className="apple-liquid-glass-card max-w-[650px] w-full border-white/15 shadow-2xl relative z-10 p-6 md:p-8 flex flex-col justify-between min-h-[580px] md:min-h-[610px] h-auto pb-8"
+            className="apple-liquid-glass-card max-w-[610px] w-full border-white/15 shadow-2xl relative z-10 p-6 md:p-8 flex flex-col justify-between min-h-[580px] md:min-h-[610px] h-auto pb-8"
           >
             <div className="space-y-6 relative z-10">
               {/* Visual Header */}
@@ -361,6 +361,23 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
                     ];
                     const activeTitleColor = tabTitleColors[idx] || "text-white";
                     
+                    const pointIconColors = [
+                      "text-blue-400 [data-theme=light]:text-blue-500",
+                      "text-rose-400 [data-theme=light]:text-rose-500",
+                      "text-emerald-400 [data-theme=light]:text-emerald-500",
+                      "text-purple-400 [data-theme=light]:text-purple-500",
+                      "text-orange-400 [data-theme=light]:text-orange-500"
+                    ];
+                    const neonGlowClasses = [
+                      "neon-glow-blue",
+                      "neon-glow-rose",
+                      "neon-glow-emerald",
+                      "neon-glow-purple",
+                      "neon-glow-orange"
+                    ];
+                    const activeIconColor = pointIconColors[idx] || "text-emerald-400";
+                    const activeGlowClass = neonGlowClasses[idx] || "neon-glow-emerald";
+                    
                     return (
                       <motion.div
                         key={srv.id}
@@ -387,7 +404,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
                         <div className="grid grid-cols-1 gap-2.5 pt-2">
                           {srv.points.map((point, index) => (
                             <div key={index} className="flex items-center gap-2.5">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                              <CheckCircle2 className={`w-4 h-4 ${activeIconColor} ${activeGlowClass} flex-shrink-0 transition-all duration-300`} />
                               <span className="text-sm md:text-base text-white/90 [data-theme=light]:text-slate-800">
                                 {point}
                               </span>

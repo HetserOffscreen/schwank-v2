@@ -723,5 +723,35 @@ body {
     inset 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
+/* Neon glow filter styles for service checkmark icons */
+.neon-glow-blue {
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.65));
+}
+.neon-glow-rose {
+  filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.65));
+}
+.neon-glow-emerald {
+  filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.65));
+}
+.neon-glow-purple {
+  filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.65));
+}
+.neon-glow-orange {
+  filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.65));
+}
 
-
+[data-theme="light"] .neon-glow-blue {
+  filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.45));
+}
+[data-theme="light"] .neon-glow-rose {
+  filter: drop-shadow(0 0 4px rgba(225, 29, 72, 0.45));
+}
+[data-theme="light"] .neon-glow-emerald {
+  filter: drop-shadow(0 0 4px rgba(5, 150, 105, 0.45));
+}
+[data-theme="light"] .neon-glow-purple {
+  filter: drop-shadow(0 0 4px rgba(109, 40, 217, 0.45));
+}
+[data-theme="light"] .neon-glow-orange {
+  filter: drop-shadow(0 0 4px rgba(217, 119, 6, 0.45));
+}
