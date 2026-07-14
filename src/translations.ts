@@ -165,6 +165,12 @@ export interface TranslationSet {
   sendWhatsAppEstimate: string;
   calculating: string;
   calculateEstimate: string;
+  notFound: {
+    title: string;
+    description: string;
+    homeButton: string;
+    errorCode: string;
+  };
 }
 
 export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
@@ -385,7 +391,13 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
     detailsPlaceholder: "Explique brevemente o problema",
     sendWhatsAppEstimate: "Enviar Orçamento por WhatsApp",
     calculating: "Calculando estimativa...",
-    calculateEstimate: "Calcular Estimativa de Orçamento"
+    calculateEstimate: "Calcular Estimativa de Orçamento",
+    notFound: {
+      title: "Página Não Encontrada",
+      description: "Ops! O Gato Profissional procurou por todos os lados, mas este link não existe ou foi movido.",
+      homeButton: "Voltar para o Início",
+      errorCode: "CÓDIGO DE ERRO: 404 // CONEXÃO REJEITADA"
+    }
   },
 
   en: {
@@ -398,7 +410,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
     },
     hero: {
       badge: "In-Person and Remote Support Active",
-      title: "Personalized Technical Support",
+      title: "Personalized Tech Support",
       techSupportSub: "Computers and Smartphones",
       description: "Customized software solutions focusing on performance optimization, digital security, and system configuration.\nExplore our services and get a quick estimate right here!\nIf you prefer, contact me directly via WhatsApp.\nThe estimate is free and with no obligation!",
       estimateDiagnostic: "Get Estimate",
@@ -605,7 +617,13 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
     detailsPlaceholder: "Briefly explain the issue",
     sendWhatsAppEstimate: "Send Estimate via WhatsApp",
     calculating: "Calculating estimate...",
-    calculateEstimate: "Calculate Price Estimate"
+    calculateEstimate: "Calculate Price Estimate",
+    notFound: {
+      title: "Page Not Found",
+      description: "Oops! The Technical Cat searched everywhere, but this link does not exist or has been moved.",
+      homeButton: "Back Home",
+      errorCode: "ERROR CODE: 404 // CONNECTION REFUSED"
+    }
   },
   
   es: {
@@ -825,6 +843,12 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
     detailsPlaceholder: "Explique brevemente el problema",
     sendWhatsAppEstimate: "Enviar Presupuesto por WhatsApp",
     calculating: "Calculando estimación...",
-    calculateEstimate: "Calcular Estimación de Presupuesto"
+    calculateEstimate: "Calcular Estimación de Presupuesto",
+    notFound: {
+      title: "Página no encontrada",
+      description: "¡Oops! El Gato Técnico buscó por todas partes, pero este enlace no existe o fue movido.",
+      homeButton: "Volver al Inicio",
+      errorCode: "CÓDIGO DE ERROR: 404 // CONEXIÓN RECHAZADA"
+    }
   }
 };

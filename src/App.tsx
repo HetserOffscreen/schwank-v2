@@ -1,17 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { translations } from "./translations";
 import { Language } from "./types";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import Header from "./components/Header";
 import FrontPage from "./components/FrontPage";
 import Wizard from "./components/Wizard";
 import SOS from "./components/SOS";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
+import NotFound from "./components/NotFound";
 
 export default function App() {
   // Multi-language support state
   const [lang, setLang] = useState<Language>("pt");
+  const [path, setPath] = useState(window.location.pathname);
+
+  // Monitor path changes for SPA state updates
+  useEffect(() => {
+    const handlePopState = () => {
+      setPath(window.location.pathname);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  const navigateTo = (to: string) => {
+    window.history.pushState({}, "", to);
+    setPath(to);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Apply dark theme to HTML tag
   useEffect(() => {
@@ -19,6 +38,20 @@ export default function App() {
   }, []);
 
   const t = translations[lang];
+
+  // Any non-root path represents a 404 page
+  const isHome = path === "/" || path === "" || path === "/index.html" || path.startsWith("/#");
+
+  if (!isHome) {
+    return (
+      <NotFound
+        lang={lang}
+        setLang={setLang}
+        translations={t}
+        onNavigateHome={() => navigateTo("/")}
+      />
+    );
+  }
 
   return (
     <div className="relative min-h-screen text-white transition-colors duration-400 pb-20 select-none overflow-x-hidden">
@@ -34,9 +67,17 @@ export default function App() {
       <Header lang={lang} setLang={setLang} translations={t} />
 
       {/* ─── MAIN APPLET BODY ─── */}
-      <main className="relative z-10 w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12">
-        
-        {/* FrontPage section */}
+      <AnimatePresence mode="wait">
+        <motion.main
+          key={lang}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -15 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 w-full max-w-7xl mx-auto px-6 mt-8 md:mt-12"
+        >
+          
+          {/* FrontPage section */}
         <FrontPage lang={lang} translations={t} />
 
         {/* Divider */}
@@ -122,7 +163,8 @@ export default function App() {
         {/* Footer */}
         <Footer lang={lang} translations={t} />
 
-      </main>
+      </motion.main>
+    </AnimatePresence>
 
     </div>
   );

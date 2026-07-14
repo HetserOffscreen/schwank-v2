@@ -347,7 +347,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               </motion.div>
 
               {/* Selected Service Detail View (Animated & Stabilized Height - No scrollbars) */}
-              <div className="flex-1 min-h-[290px] select-text">
+              <div className="flex-1 min-h-[290px] select-none">
                 <AnimatePresence mode="wait">
                   {services.map((srv) => {
                     if (srv.id !== activeTab) return null;

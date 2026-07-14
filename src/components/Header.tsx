@@ -42,15 +42,34 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    const isHome = window.location.pathname === "/" || window.location.pathname === "" || window.location.pathname === "/index.html";
+    if (isHome) {
+      const element = document.querySelector(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      window.history.pushState({}, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      setTimeout(() => {
+        const element = document.querySelector(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 150);
     }
   };
 
   const handleBackToTop = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const isHome = window.location.pathname === "/" || window.location.pathname === "" || window.location.pathname === "/index.html";
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      window.history.pushState({}, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   // Compute fixed positioning style for the scrolled ball so it lines up with the right column (Y-axis of the language button)
@@ -79,9 +98,9 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
       >
         <AnimatePresence mode="wait">
           {isScrolled ? (
-            // --- SCROLLED BALL STATE: ONLY CAT IMAGE ---
+            // --- SCROLLED BUBBLE STATE: ONLY CAT IMAGE ---
             <motion.div
-              key="scrolled-cat"
+              key="scrolled-bubble"
               initial={{ opacity: 0, scale: 0.6, rotate: -25 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.6, rotate: 25 }}
@@ -112,21 +131,32 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
                   <a
                     href="#estimator"
                     onClick={(e) => handleScroll(e, "#estimator")}
-                    className="px-4.5 py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-emerald-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-emerald-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-500 ease-out"
+                    className="w-[190px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-emerald-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-emerald-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
-                    {translations.nav.freeEstimate}
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={lang}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="inline-block text-center whitespace-nowrap"
+                      >
+                        {translations.nav.freeEstimate}
+                      </motion.span>
+                    </AnimatePresence>
                   </a>
                   <a
                     href="#sos-info"
                     onClick={(e) => handleScroll(e, "#sos-info")}
-                    className="px-4.5 py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-rose-500/30 text-rose-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-rose-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-500 ease-out"
+                    className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-rose-500/30 text-rose-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-rose-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
-                    {translations.nav.sosZones}
+                    SOS
                   </a>
                   <a
                     href="#faq-section"
                     onClick={(e) => handleScroll(e, "#faq-section")}
-                    className="px-4.5 py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-violet-500/30 text-violet-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-violet-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-500 ease-out"
+                    className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-violet-500/30 text-violet-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-violet-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
                     FAQ
                   </a>
@@ -152,15 +182,26 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="w-20 h-20 object-cover -my-4 flex-shrink-0"
+                    className="w-20 h-20 object-cover rounded-full -my-4 flex-shrink-0"
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex flex-col justify-center group-hover:translate-x-0.5 transition-transform duration-300 text-left">
                     <span className="font-[Georgia] text-2xl md:text-3xl tracking-wide font-medium text-white [data-theme=light]:text-slate-900 transition-colors leading-tight">
                       {translations.nav.title}
                     </span>
-                    <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-[#5ee7df] font-bold">
-                      {translations.nav.techSupport}
+                    <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-[#5ee7df] font-bold block min-h-[14px] overflow-hidden">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={lang}
+                          initial={{ opacity: 0, y: 3 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -3 }}
+                          transition={{ duration: 0.2 }}
+                          className="block"
+                        >
+                          {translations.nav.techSupport}
+                        </motion.span>
+                      </AnimatePresence>
                     </span>
                   </div>
                 </a>
@@ -177,12 +218,26 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
               >
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="px-4.5 py-2 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center gap-1.5 cursor-pointer shadow-md"
+                  className="w-[155px] py-2 px-3.5 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center justify-between cursor-pointer shadow-md select-none"
                   id="language-selector-btn"
                   title="Select language"
                 >
-                  <span>{lang === "pt" ? "🇧🇷 Português" : lang === "en" ? "🇺🇸 English" : "🇪🇸 Español"}</span>
-                  <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                  <span className="relative flex-1 h-5 overflow-hidden text-left">
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={lang}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 flex items-center gap-1.5 whitespace-nowrap"
+                      >
+                        <span>{lang === "pt" ? "🇧🇷" : lang === "en" ? "🇺🇸" : "🇪🇸"}</span>
+                        <span>{lang === "pt" ? "Português" : lang === "en" ? "English" : "Español"}</span>
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
+                  <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 flex-shrink-0 ml-1 ${dropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 <AnimatePresence>
@@ -211,21 +266,6 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
 
                       <button
                         onClick={() => {
-                          setLang("en");
-                          setDropdownOpen(false);
-                        }}
-                        className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
-                          lang === "en"
-                            ? "bg-white/10 text-cyan-400 font-bold"
-                            : "text-white/70 hover:bg-white/5 hover:text-white"
-                        }`}
-                      >
-                        <span>🇺🇸 English</span>
-                        {lang === "en" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
-                      </button>
-
-                      <button
-                        onClick={() => {
                           setLang("es");
                           setDropdownOpen(false);
                         }}
@@ -237,6 +277,21 @@ export default function Header({ lang, setLang, translations }: HeaderProps) {
                       >
                         <span>🇪🇸 Español</span>
                         {lang === "es" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          setLang("en");
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2.5 rounded-xl text-xs font-mono flex items-center justify-between transition-colors cursor-pointer ${
+                          lang === "en"
+                            ? "bg-white/10 text-cyan-400 font-bold"
+                            : "text-white/70 hover:bg-white/5 hover:text-white"
+                        }`}
+                      >
+                        <span>🇺🇸 English</span>
+                        {lang === "en" && <span className="text-[9px] text-cyan-400 font-mono">●</span>}
                       </button>
                     </motion.div>
                   )}
