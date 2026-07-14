@@ -281,19 +281,19 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       cards: {
         security: {
           title: "Limpeza de Segurança",
-          desc: "Remoção completa de softwares maliciosos, spywares, keyloggers e correção de configurações de segurança para proteger seus arquivos confidenciais.",
+          desc: "Varredura e remoção completa de vírus e propagandas incovenientes, configurações de segurança para garantir a proteção dos seus arquivos.",
         },
         restore: {
           title: "Restauração de Sistema",
-          desc: "Reinstalação rápida do sistema operacional, reparo de software dinâmico e recuperação de inicialização para computadores travados.",
+          desc: "Reinstalação rápida do sistema operacional, recuperação de login perdido para aplicativos e reparo na falta de inicialização do seu aparelho.",
         },
         wifi: {
-          title: "Configuração de Wi-Fi & Rede",
-          desc: "Configuração de ambientes de rede altamente seguros para evitar interceptações ou adulterações de arquivos em conexões domésticas ou públicas.",
+          title: "Wi-Fi & Rede",
+          desc: "Configuraçãos de acesso a internet e controle parental pra você decidir exatamente o que seus filhos têm acesso.",
         },
         performance: {
           title: "Otimização de Performance",
-          desc: "Limpeza profunda de inicializadores ocultos, desativação de processos pesados na memória e ajuste fino do sistema para recuperar a velocidade máxima.",
+          desc: "Limpeza profunda de inicializadores ocultos, desativação de processos pesados na memória e ajuste fino do sistema para recuperar seu desempenho máximo.",
         },
       },
     },
