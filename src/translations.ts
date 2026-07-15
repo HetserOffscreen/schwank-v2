@@ -5,6 +5,7 @@ export interface TranslationSet {
     services: string;
     sosZones: string;
     freeEstimate: string;
+    faq: string;
   };
   hero: {
     badge: string;
@@ -16,11 +17,11 @@ export interface TranslationSet {
     dataSecure: string;
     multilingual: string;
     urgentArea: string;
+    contactMe: string;
   };
   portal: {
     systemIdentity: string;
     supportTitle: string;
-    securePortal: string;
     inHomeAssist: string;
     remoteDiag: string;
     noAttachment: string;
@@ -181,22 +182,23 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       services: "Serviços",
       sosZones: "SOS",
       freeEstimate: "Orçamento Grátis",
+      faq: "FAQ",
     },
     hero: {
       badge: "Operações Presenciais e Remotas Ativas",
       title: "Assistência Técnica Personalizada",
       techSupportSub: "Computadores e Celulares",
       description: "Soluções personalizadas com foco em otimização de desempenho, proteção digital e configurações gerais. \nConfira a página de serviços e faça uma estimativa rápida aqui mesmo! \nSe preferir, fale direto comigo por WhatsApp.\nO orçamento é gratuito e sem compromisso!",
-      estimateDiagnostic: "Estimar Orçamento",
+      estimateDiagnostic: "Orçamento",
       exploreOfferings: "Explorar Serviços",
       dataSecure: "100% Dados Seguros",
       multilingual: "Suporte em Português",
       urgentArea: "Zona SOS Leblon",
+      contactMe: "Fale Comigo!",
     },
     portal: {
       systemIdentity: "Serviços Exclusivos",
       supportTitle: "Ernesto Scheffer",
-      securePortal: "PORTAL SEGURO V2.4 // RJ",
       inHomeAssist: "Atendimento Presencial na Zona Sul",
       remoteDiag: "Diagnóstico Remoto Global Certificado",
       noAttachment: "Garantia de Orçamento sem Compromisso",
@@ -407,6 +409,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       services: "Services",
       sosZones: "SOS",
       freeEstimate: "Free Estimate",
+      faq: "FAQ",
     },
     hero: {
       badge: "In-Person and Remote Support Active",
@@ -418,11 +421,11 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       dataSecure: "100% Data Secured",
       multilingual: "English, Portuguese & Spanish",
       urgentArea: "SOS Zona Sul Rio",
+      contactMe: "Contact Me!",
     },
     portal: {
       systemIdentity: "Exclusive Services",
       supportTitle: "Ernesto Scheffer",
-      securePortal: "SECURE PORTAL V2.4 // GLOBAL",
       inHomeAssist: "In-Person Support in Zona Sul, Rio",
       remoteDiag: "Certified Global Remote Diagnostics",
       noAttachment: "No-Obligation Estimate Guarantee",
@@ -633,6 +636,7 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       services: "Servicios",
       sosZones: "SOS",
       freeEstimate: "Presupuesto Gratis",
+      faq: "FAQ",
     },
     hero: {
       badge: "Soporte Presencial y Remoto Activo",
@@ -644,11 +648,11 @@ export const translations: Record<"pt" | "en" | "es", TranslationSet> = {
       dataSecure: "100% Datos Protegidos",
       multilingual: "Soporte en Español, Inglés y Portugués",
       urgentArea: "SOS Zona Sul Rio",
+      contactMe: "¡Hable Conmigo!",
     },
     portal: {
       systemIdentity: "Servicios Exclusivos",
       supportTitle: "Ernesto Scheffer",
-      securePortal: "PORTAL SEGURO V2.4 // GLOBAL",
       inHomeAssist: "Soporte Presencial en la Zona Sur de Río",
       remoteDiag: "Diagnóstico Remoto Global Certificado",
       noAttachment: "Garantía de Presupuesto Sin Compromiso",

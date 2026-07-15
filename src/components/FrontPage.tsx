@@ -272,7 +272,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               className="glass px-5 md:px-6 py-4 rounded-full font-medium text-base border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-400/30 text-white/80 hover:text-emerald-300 flex items-center justify-center gap-1.5 md:gap-2 cursor-pointer flex-1 whitespace-nowrap overflow-hidden"
             >
               <MessageSquare className="w-4 h-4 md:w-4.5 md:h-4.5 text-emerald-400 flex-shrink-0" />
-              <span className="truncate">Fale Comigo Agora!</span>
+              <span className="truncate">{translations.hero.contactMe}</span>
             </motion.a>
           </motion.div>
 
