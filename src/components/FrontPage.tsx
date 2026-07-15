@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Laptop, 
   Globe, 
@@ -21,6 +21,22 @@ interface FrontPageProps {
 export default function FrontPage({ lang, translations }: FrontPageProps) {
   // Interactive Tab for Capabilities - internal to FrontPage
   const [activeTab, setActiveTab] = useState<string>("remote");
+  const [isAutoCycling, setIsAutoCycling] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!isAutoCycling) return;
+
+    const serviceIds = ["remote", "sos", "home", "multilingual", "estimate"];
+    const interval = setInterval(() => {
+      setActiveTab((prev) => {
+        const currentIndex = serviceIds.indexOf(prev);
+        const nextIndex = (currentIndex + 1) % serviceIds.length;
+        return serviceIds[nextIndex];
+      });
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoCycling]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -241,7 +257,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="glass px-5 md:px-6 py-4 rounded-full font-medium text-base bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-emerald-300 [data-theme=light]:text-teal-800 shadow-glow flex items-center justify-center gap-1.5 md:gap-2 cursor-pointer flex-1 whitespace-nowrap overflow-hidden"
+              className="glass px-5 md:px-6 py-4 rounded-full font-medium text-base bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border-emerald-400/30 text-white/80 hover:text-emerald-300 shadow-glow flex items-center justify-center gap-1.5 md:gap-2 cursor-pointer flex-1 whitespace-nowrap overflow-hidden"
             >
               <Sparkles className="w-4 h-4 md:w-4.5 md:h-4.5 text-emerald-400 flex-shrink-0" />
               <span className="truncate">{translations.hero.estimateDiagnostic}</span>
@@ -337,7 +353,10 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
                     <motion.button
                       key={srv.id}
                       variants={tabButtonVariants}
-                      onClick={() => setActiveTab(srv.id)}
+                      onClick={() => {
+                        setActiveTab(srv.id);
+                        setIsAutoCycling(false);
+                      }}
                       className={`apple-tab-btn relative group ${isSelected ? `is-active ${currentStyle.textActive}` : `text-white/40 ${currentStyle.hoverClass}`}`}
                     >
                       <IconComponent className="w-5 h-5 transition-transform duration-300 active:scale-90" />

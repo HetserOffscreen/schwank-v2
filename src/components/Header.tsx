@@ -129,29 +129,11 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="flex items-center justify-start gap-2.5"
               >
-                <div className="hidden md:flex items-center gap-2.5">
-                  <a
-                    href="#estimator"
-                    onClick={(e) => handleScroll(e, "#estimator")}
-                    className="w-[190px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-emerald-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-emerald-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={lang}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="inline-block text-center whitespace-nowrap"
-                      >
-                        {translations.nav.freeEstimate}
-                      </motion.span>
-                    </AnimatePresence>
-                  </a>
+                <div className="hidden md:flex items-center gap-3">
                   <a
                     href="#sos-info"
                     onClick={(e) => handleScroll(e, "#sos-info")}
-                    className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-rose-500/30 text-rose-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-rose-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
+                    className="w-[85px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-rose-500/30 text-rose-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-rose-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-rose-500/50 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
                     <AnimatePresence mode="wait">
                       <motion.span
@@ -169,7 +151,7 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                   <a
                     href="#faq-section"
                     onClick={(e) => handleScroll(e, "#faq-section")}
-                    className="w-[70px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-violet-500/30 text-violet-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-violet-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
+                    className="w-[85px] py-2 rounded-full text-[13px] uppercase tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-violet-500/30 text-violet-400 [data-theme=light]:bg-slate-900/80 [data-theme=light]:text-violet-300 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-violet-500/50 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-500 ease-out inline-flex items-center justify-center overflow-hidden"
                   >
                     <AnimatePresence mode="wait">
                       <motion.span
