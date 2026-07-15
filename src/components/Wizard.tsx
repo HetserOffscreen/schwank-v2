@@ -453,11 +453,10 @@ export default function Wizard({ translations, lang }: WizardProps) {
                               href={generateWhatsAppLink()}
                               target="_blank"
                               rel="noreferrer"
-                              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 md:px-5 md:py-3.5 rounded-full font-bold text-white text-xs md:text-sm whatsapp-btn-glow hover:brightness-110 transform-gpu hover:scale-[1.01] active:scale-[0.98] transition-all duration-300 cursor-pointer shadow-lg"
+                              className="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 md:px-5 md:py-3.5 rounded-full font-bold text-white text-[11px] sm:text-xs md:text-sm whatsapp-btn-glow hover:brightness-110 transform-gpu hover:scale-[1.01] active:scale-[0.98] transition-all duration-300 cursor-pointer shadow-lg"
                             >
-                              <MessageSquare className="h-4.5 w-4.5 fill-white/10 shrink-0" />
-                              <span className="whitespace-nowrap">{translations.sendWhatsAppEstimate}</span>
-                              <ExternalLink className="h-4 w-4 opacity-90 ml-0.5 shrink-0" />
+                              <ExternalLink className="h-4 w-4 opacity-90 shrink-0 mr-0.5" />
+                              <span className="text-center sm:whitespace-nowrap">{translations.sendWhatsAppEstimate}</span>
                             </a>
                           </div>
                         </div>

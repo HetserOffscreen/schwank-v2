@@ -87,14 +87,14 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
   } : {};
 
   return (
-    <header className="relative z-50 w-full max-w-7xl mx-auto px-6 pt-6 h-24 md:h-28">
+    <header className="relative z-50 w-full max-w-7xl mx-auto px-4 md:px-6 pt-4 md:pt-6 h-24 md:h-28">
       <motion.nav
         layout
         style={scrolledStyle}
         className={`glass !overflow-visible border border-white/10 shadow-lg transition-all duration-500 ease-out ${
           isScrolled
             ? "cursor-pointer flex items-center justify-center rounded-full hover:scale-105 active:scale-95 border-cyan-500/30 shadow-cyan-500/5 hover:border-cyan-400/50"
-            : "rounded-full px-8 py-4 grid grid-cols-3 items-center"
+            : "rounded-full px-4 md:px-8 py-3 md:py-4 flex justify-between md:grid md:grid-cols-3 items-center"
         }`}
         onClick={isScrolled ? handleBackToTop : undefined}
       >
@@ -121,15 +121,15 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
           ) : (
             // --- NORMAL HEADER STATE: centered layout ---
             <React.Fragment key="full-header">
-              {/* Left Column: Nav links */}
+              {/* Left Column: Nav links (Hidden on Mobile) */}
               <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -15 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="flex items-center justify-start gap-2.5"
+                className="hidden md:flex items-center justify-start gap-2.5"
               >
-                <div className="hidden md:flex items-center gap-3">
+                <div className="flex items-center gap-3">
                   <a
                     href="#sos-info"
                     onClick={(e) => handleScroll(e, "#sos-info")}
@@ -178,9 +178,9 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                 className="flex justify-center"
               >
                 <a
-                  href="#"
-                  onClick={handleBackToTop}
-                  className="flex items-center gap-2 cursor-pointer group select-none"
+                  href="#faq-section"
+                  onClick={(e) => handleScroll(e, "#faq-section")}
+                  className="flex items-center gap-1.5 md:gap-2 cursor-pointer group select-none"
                 >
                   <motion.img
                     src="/gato-profissional.png"
@@ -188,14 +188,14 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                    className="w-20 h-20 object-cover rounded-full -my-4 flex-shrink-0"
+                    className="w-11 h-11 md:w-20 md:h-20 object-cover rounded-full -my-4 flex-shrink-0"
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex flex-col justify-center group-hover:translate-x-0.5 transition-transform duration-300 text-left">
-                    <span className="font-[Georgia] text-2xl md:text-3xl tracking-wide font-medium text-white [data-theme=light]:text-slate-900 transition-colors leading-tight">
+                    <span className="font-[Georgia] text-base xs:text-[17px] sm:text-xl md:text-2xl tracking-wide font-medium text-white [data-theme=light]:text-slate-900 transition-colors leading-tight whitespace-nowrap">
                       {translations.nav.title}
                     </span>
-                    <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-widest text-[#5ee7df] font-bold block min-h-[14px] overflow-hidden">
+                    <span className="font-mono text-[8px] xs:text-[9px] md:text-[10px] uppercase tracking-widest text-[#5ee7df] font-bold block min-h-[14px] overflow-hidden">
                       <AnimatePresence mode="wait">
                         <motion.span
                           key={lang}
@@ -219,12 +219,12 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 15 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className="flex items-center justify-end gap-2.5 relative"
+                className="flex items-center justify-end gap-1.5 md:gap-2.5 relative"
               >
                 <div className="relative" ref={dropdownRef}>
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                    className="w-[155px] py-2 px-3.5 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center justify-between cursor-pointer shadow-md select-none"
+                    className="w-[75px] sm:w-[155px] py-2 px-2.5 sm:px-3.5 rounded-full text-[13px] font-mono tracking-wider font-semibold bg-slate-950/40 backdrop-blur-md border border-white/10 text-white [data-theme=light]:bg-slate-900/80 [data-theme=light]:border-slate-800 hover:scale-105 active:scale-95 hover:bg-slate-900/60 hover:border-white/20 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-500 ease-out flex items-center justify-between cursor-pointer shadow-md select-none"
                     id="language-selector-btn"
                     title="Select language"
                   >
@@ -236,14 +236,15 @@ export default function Header({ lang, setLang, translations, theme, toggleTheme
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -4 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute inset-0 flex items-center gap-1.5 whitespace-nowrap"
+                          className="absolute inset-0 flex items-center gap-1 whitespace-nowrap"
                         >
                           <span>{lang === "pt" ? "🇧🇷" : lang === "en" ? "🇺🇸" : "🇪🇸"}</span>
-                          <span>{lang === "pt" ? "Português" : lang === "en" ? "English" : "Español"}</span>
+                          <span className="hidden sm:inline">{lang === "pt" ? "Português" : lang === "en" ? "English" : "Español"}</span>
+                          <span className="inline sm:hidden">{lang === "pt" ? "PT" : lang === "en" ? "EN" : "ES"}</span>
                         </motion.span>
                       </AnimatePresence>
                     </span>
-                    <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 flex-shrink-0 ml-1 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-3 h-3 text-white/50 transition-transform duration-300 flex-shrink-0 ml-0.5 sm:ml-1 ${dropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   <AnimatePresence>

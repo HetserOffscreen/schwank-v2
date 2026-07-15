@@ -219,13 +219,13 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
           
           {/* Main Display Typography Title */}
           <motion.div variants={titleVariants} className="space-y-2">
-            <h1 className="font-display text-5xl md:text-7xl leading-none tracking-tight font-medium bg-gradient-to-r from-white via-slate-100 to-cyan-300 [data-theme=light]:from-slate-900 [data-theme=light]:via-slate-800 [data-theme=light]:to-teal-800 bg-clip-text text-transparent transition-colors w-full max-w-[550px]">
+            <h1 className="font-display text-[32px] xs:text-[40px] sm:text-5xl md:text-7xl leading-none tracking-tight font-medium bg-gradient-to-r from-white via-slate-100 to-cyan-300 [data-theme=light]:from-slate-900 [data-theme=light]:via-slate-800 [data-theme=light]:to-teal-800 bg-clip-text text-transparent transition-colors w-full max-w-[550px]">
               {(() => {
                 const words = translations.hero.title.split(" ");
                 if (words.length >= 2) {
                   return (
                     <>
-                      <span className="whitespace-nowrap">{words[0]} {words[1]}</span>{" "}
+                      <span className="sm:whitespace-nowrap">{words[0]} {words[1]}</span>{" "}
                       {words.slice(2).join(" ")}
                     </>
                   );
@@ -249,7 +249,7 @@ export default function FrontPage({ lang, translations }: FrontPageProps) {
           {/* Quick action buttons moved to this section */}
           <motion.div 
             variants={buttonGroupVariants}
-            className="flex flex-row items-center gap-3 md:gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-[550px]"
+            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-4 pt-8 border-t border-white/10 [data-theme=light]:border-slate-300 w-full max-w-[550px]"
           >
             <motion.a 
               href="#estimator" 
