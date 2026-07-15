@@ -102,7 +102,7 @@ export default function FAQ({ lang, translations }: FAQProps) {
               >
                 <div className="flex items-center gap-4">
                   <HelpCircle className="w-5 h-5 text-violet-400 flex-shrink-0" />
-                  <span className="font-display text-lg font-medium">{faq.q}</span>
+                  <span className="font-body text-xl md:text-2xl font-medium tracking-tight">{faq.q}</span>
                 </div>
                 <ChevronDown className={`w-5 h-5 text-white/40 transition-transform duration-300 ${isOpen ? 'rotate-180 text-violet-400' : ''}`} />
               </button>
@@ -116,7 +116,7 @@ export default function FAQ({ lang, translations }: FAQProps) {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden border-t border-white/5 [data-theme=light]:border-slate-200"
                   >
-                    <p className="p-6 text-sm text-white/70 [data-theme=light]:text-slate-600 leading-relaxed font-body font-light bg-white/[0.02]">
+                    <p className="p-6 text-base md:text-[17px] text-white/70 [data-theme=light]:text-slate-600 leading-relaxed font-body font-light bg-white/[0.02]">
                       {faq.a}
                     </p>
                   </motion.div>
